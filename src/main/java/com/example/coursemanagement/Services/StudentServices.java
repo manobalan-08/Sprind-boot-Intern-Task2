@@ -1,16 +1,66 @@
 package com.example.coursemanagement.Services;
 
-
 import com.example.coursemanagement.Models.Student;
+import com.example.coursemanagement.Repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class StudentServices {
-    List<Student> obj = new ArrayList<>(
+
+    @Autowired
+    private StudentRepository studRepo;
+
+
+    public List<Student> getAllStudents() {
+        return studRepo.findAll();
+    }
+
+
+    public Student getStudentbyId(int studID) {
+        return studRepo.findById(studID).orElse(null);
+    }
+
+
+    public String addStudent(Student student) {
+        studRepo.save(student);
+        return "Student Added Successfully";
+    }
+
+
+    public String updateStudent(int studID, Student student) {
+        if (studRepo.existsById(studID)) {
+            student.setStudID(studID);
+            studRepo.save(student);
+            return "Student Updated Successfully";
+        } else {
+            return "Student ID not found. Update Failed.";
+        }
+    }
+
+
+    public String deleteStudent(int studID) {
+        if (studRepo.existsById(studID)) {
+            studRepo.deleteById(studID);
+            return "Student Deleted Successfully";
+        } else {
+            return "Student ID not found. Deletion Failed.";
+        }
+    }
+
+    public Student getStudentByCourse(String course) {
+        return studRepo.findByCourse(course);
+
+    }
+
+}
+
+
+
+
+/*  List<Student> obj = new ArrayList<>(
             Arrays.asList(
                     new Student(1, "Manobalan M", "Full-stack-developer"),
                     new Student(2, "ShriDarsh", "Backend-developer"),
@@ -32,7 +82,7 @@ public class StudentServices {
         return obj;
     } This Method is a basic Method Implemented in Task2
     */
-   public Student getStudentId(int stuID) {
+  /* public Student getStudentId(int stuID) {
        for (Student s : obj) {
            if (s.getStudID() == stuID) {
                System.out.println("STUId: " + s.getStudID() + " " + s);
@@ -42,7 +92,7 @@ public class StudentServices {
        // If not found, return an empty/default Student
        return new Student();
    }
-    
+
 
     public String deleteStudentById(int stuID) {
         for(int i=0 ; i<obj.size();i++){
@@ -66,5 +116,4 @@ public class StudentServices {
 
         }
         return"Student Record is not Found!";
-    }
-}
+    } */
