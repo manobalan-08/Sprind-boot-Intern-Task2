@@ -27,6 +27,6 @@ public class AuthController {
        return authserve.postInstructor(register);
 
     }
-    @PostMapping("/login")
+
 
 }

@@ -15,6 +15,9 @@ public class InstructorController {
     @Autowired
     private InstructorServices instSer;
 
+    @Autowired
+    InstructorController instructorController;
+
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("/")
     public String route() {
@@ -54,5 +57,11 @@ public class InstructorController {
     @DeleteMapping("/Instructor/{insId}")
     public String deleteInstructorById(@PathVariable int insId) {
         return instSer.deleteInstructorById(insId);
+    }
+
+
+    @GetMapping("/InstructorMockito")
+    public List<InstructorController> getMethodMockito() {
+        return instructorController.getMethodMockito();
     }
 }

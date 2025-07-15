@@ -1,7 +1,10 @@
 package com.example.coursemanagement.Services;
 
 import com.example.coursemanagement.Models.Instructor;
+import com.example.coursemanagement.Models.RegisterDetails;
 import com.example.coursemanagement.Repository.InstructorRepository;
+import com.example.coursemanagement.Repository.RegisterDetailsRepository;
+import org.apache.catalina.util.ErrorPageSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,10 @@ public class InstructorServices {
 
     @Autowired
     private InstructorRepository instRepo;
+
+    @Autowired
+    private RegisterDetailsRepository registerDetailsRepository;
+
 
     public List<Instructor> getAllInstructorId() {
         return instRepo.findAll();
@@ -49,4 +56,8 @@ public class InstructorServices {
         return "Instructor ID not found (404)";
     }
 
+
+    public List<RegisterDetails> getMethod() {
+        return registerDetailsRepository.findAll();
+    }
 }
